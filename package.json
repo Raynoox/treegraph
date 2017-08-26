@@ -1,0 +1,35 @@
+{
+  "name": "treegraph",
+  "version": "1.0.0",
+  "description": "tree graph",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raynoox/treegraph.git"
+  },
+  "keywords": [
+    "tree"
+  ],
+  "author": "Damian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raynoox/treegraph/issues"
+  },
+  "homepage": "https://github.com/Raynoox/treegraph#readme",
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "rest": "^2.0.0",
+    "webpack": "^3.5.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0"
+  }
+}

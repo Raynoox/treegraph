@@ -3,6 +3,9 @@
   text-align: center;
   width: 100%;
   .circleNode {
+    input[type=number] {
+      -moz-appearance:textfield;
+    }
     width: 100px;
     height: 100px;
     -webkit-border-radius: 50px;
@@ -33,6 +36,13 @@
     justify-content: center;
   }
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 .line {
   border-top: 2px solid !important;
   color: brown;

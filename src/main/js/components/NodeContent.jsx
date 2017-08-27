@@ -26,6 +26,7 @@ class NodeContent extends React.Component {
                             type="number"
                             className={this.props.canChangeValue ? "nodeInput": "nodeInput disabled"}
                             readOnly={!this.props.canChangeValue}
+                            disabled={!this.props.canChangeValue}
                             defaultValue={this.props.node.value}
                             />
                         {this.renderValueButtons()}

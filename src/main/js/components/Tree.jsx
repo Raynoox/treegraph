@@ -48,7 +48,6 @@ class Tree extends React.Component {
         request('DELETE','/api/nodes/'+node.id,this.fetchNodes.bind(this),this.showError.bind(this));
     }
     addNode(e, node) {
-        console.log("adding node to "+node.id+ " NOT IMPLEMENTED");
         request('POST','/api/nodes',this.fetchNodes.bind(this),this.showError.bind(this), {parentId: node.id, value: 0});
      }
     fetchNodes(){
@@ -56,7 +55,6 @@ class Tree extends React.Component {
         request('GET','/api/nodes',function(data){me.createTreeTopology(JSON.parse(data.entity))})
     }
     showError(response) {
-        console.log(response);
         let message = JSON.parse(response.entity).message;
         return Alert.error("Error "+response.status.code.toString()+" "+message,{
             position: 'top-right',

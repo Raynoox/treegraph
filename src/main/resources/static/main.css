@@ -11,6 +11,8 @@
     background: lightgreen;
     position: relative;
     left: calc(50%); }
+    .node .circleNode input[type=number] {
+      -moz-appearance: textfield; }
     .node .circleNode.red {
       background: lightcoral; }
     .node .circleNode.yellow {
@@ -26,6 +28,13 @@
     margin: 10px;
     display: flex;
     justify-content: center; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */ }
 
 .line {
   border-top: 2px solid !important;

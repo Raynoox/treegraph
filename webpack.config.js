@@ -1,5 +1,5 @@
 var path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: "./src/main/js/app.jsx",
     output: {

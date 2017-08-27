@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,18 +50,24 @@ public class Nodes {
         }
     }
     @DeleteMapping(value = "{id}")
-    public void delete(@PathVariable("id") Long id) {
-        nodeService.remove(id);
+    public void delete(@PathVariable("id") Long id, HttpServletResponse response) throws IOException {
+        try {
+            nodeService.remove(id);
+        } catch(DataIntegrityViolationException e) {
+            response.sendError(BAD_REQUEST.value(),e.getMessage());
+        } catch(TreeValidationException e) {
+            response.sendError(UNPROCESSABLE_ENTITY.value(),e.getMessage());
+        }
     }
     @PatchMapping(value = "{id}")
-    public void update(@PathVariable("id") Long id,@RequestBody NodeDTO dto, HttpServletResponse response) {
+    public void update(@PathVariable("id") Long id,@RequestBody NodeDTO dto, HttpServletResponse response) throws IOException {
         dto.setId(id);
         try{
             nodeService.update(dto);
         } catch(DataIntegrityViolationException e) {
-            response.setStatus(BAD_REQUEST.value());
+            response.sendError(BAD_REQUEST.value(), e.getMessage());
         } catch (TreeValidationException e) {
-            response.setStatus(UNPROCESSABLE_ENTITY.value());
+            response.sendError(UNPROCESSABLE_ENTITY.value(), e.getMessage());
         }
     }
 

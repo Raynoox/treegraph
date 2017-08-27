@@ -3,14 +3,29 @@
   text-align: center;
   width: 100%;
   .circleNode {
-    width: 75px;
-    height: 75px;
-    -webkit-border-radius: 37px;
-    -moz-border-radius: 37px;
-    border-radius: 37px;
+    width: 100px;
+    height: 100px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
     background: lightgreen;
     position: relative;
     left: calc(50%);
+    &.red {
+      background: lightcoral;
+    }
+    &.yellow {
+      background: moccasin;
+    }
+    .nodeInput {
+      border-width: 0;
+      font: 24px Arial;
+      width: 100%;
+      text-align: center;
+      &.disabled {
+        background: transparent;
+      }
+    }
   }
   .childrenEvenly {
     margin: 10px;

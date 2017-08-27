@@ -20,10 +20,22 @@ public class TreeValidationServiceImpl implements TreeValidationService {
         checkInitialTreeConstraints(nodes);
 
         initializeVisitedMap(nodes);
-        for(Node node : nodes) {
-            DFS(node);
+
+        for(VisitedWrapper node : visitedMap.values()) {
+            DFS2(node);
         }
 
+    }
+
+    private void DFS2(VisitedWrapper node) {
+        if(node != null && !isVisited(node.id)) {
+            if(isVisitedThisIteration(node.id)) {
+                throw new TreeHasCyclesException();
+            }
+            markNodeVisitedThisIteration(node.id);
+            DFS2(getWrapperById(node.parentId));
+            markNodeVisited(node.id);
+        }
     }
 
     private void checkInitialTreeConstraints(List<Node> nodes) {
@@ -41,35 +53,34 @@ public class TreeValidationServiceImpl implements TreeValidationService {
     }
 
     private void initializeVisitedMap(List<Node> nodes) {
-        nodes.forEach(node -> visitedMap.put(node.getId(), new VisitedWrapper()));
+        nodes.forEach(node -> visitedMap.put(node.getId(), new VisitedWrapper(node)));
     }
 
-    private void DFS(Node node) {
-        if(!isVisited(node)) {
-            if(isVisitedThisIteration(node)) {
-                throw new TreeHasCyclesException();
-            }
-            markNodeVisitedThisIteration(node);
-            DFS(node.getParent());
-            markNodeVisited(node);
-        }
+    private boolean isVisitedThisIteration(Long nodeId) {
+        return visitedMap.get(nodeId).isVisitedThisIteration();
     }
-    private boolean isVisitedThisIteration(Node node) {
-        return visitedMap.get(node.getId()).isVisitedThisIteration();
+    private boolean isVisited(Long nodeId) {
+        return nodeId == null || visitedMap.get(nodeId).isVisited();
     }
-    private boolean isVisited(Node node) {
-        return node == null || visitedMap.get(node.getId()).isVisited();
+    private VisitedWrapper getWrapperById(Long id) {
+        return visitedMap.get(id);
     }
-    private void markNodeVisitedThisIteration(Node node) {
-        visitedMap.get(node.getId()).setVisitedThisIteration(true);
+    private void markNodeVisitedThisIteration(Long nodeId) {
+        visitedMap.get(nodeId).setVisitedThisIteration(true);
     }
-    private void markNodeVisited(Node node) {
-        visitedMap.get(node.getId()).setVisited(true);
+    private void markNodeVisited(Long nodeId) {
+        visitedMap.get(nodeId).setVisited(true);
     }
     @Getter
     @Setter
     public class VisitedWrapper{
         boolean isVisited;
         boolean visitedThisIteration;
+        Long id;
+        Long parentId;
+        VisitedWrapper(Node node) {
+            id = node.getId();
+            parentId = node.getParent() != null ? node.getParent().getId() : null;
+        }
     }
 }

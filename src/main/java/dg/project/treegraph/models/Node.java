@@ -11,7 +11,7 @@ public class Node {
     private Long id;
     @Column(name= "VALUE", nullable = false)
     private Long value;
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.EAGER)
     private Node parent;
 
 

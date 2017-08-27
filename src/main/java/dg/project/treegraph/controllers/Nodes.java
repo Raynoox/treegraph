@@ -5,6 +5,7 @@ import dg.project.treegraph.services.NodeService;
 import dg.project.treegraph.services.exceptions.TreeValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,7 @@ public class Nodes {
         }
         return result.orElse(null);
     }
-    @PostMapping
+    @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public void add(@RequestBody NodeDTO dto, HttpServletResponse response) {
         try {
             nodeService.add(dto);
